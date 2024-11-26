@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://moneyfulpublicpolicy.co.kr";
+const API_URL = "http://localhost:5000/testResults";
 
 // 테스트 결과 생성 (Create)
 export const createTestResult = async (testData) => {

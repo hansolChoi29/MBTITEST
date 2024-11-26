@@ -1,6 +1,6 @@
 // src/components/Layout.jsx
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import Home from "../pages/Home";
+import Footer from "./Footer";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -20,11 +20,10 @@ const Layout = () => {
         method="POST"
       >
         <div className="container mx-auto flex justify-between items-center ">
-          <h1 className="text-xl font-bold">MBTI TEST</h1>
+          <Link to="/testpage" className="text-xl font-bold">
+            MBTI TEST
+          </Link>
           <div>
-            <Link element={<Home />} className="mr-4 hover:underline">
-              Home
-            </Link>
             <Link to="/profilepage" className="mr-4 hover:underline">
               Profile
             </Link>

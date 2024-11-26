@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-[#2f4f4f]">
       {/* 메인 콘텐츠 */}
@@ -17,10 +17,9 @@ const Home = () => {
         </Link>
         <p className="text-[#d6d9dc] m-3 text-xs">start click!</p>
       </main>
-
       <Footer />
     </div>
   );
 };
 
-export default Home;
+export default HomePage;

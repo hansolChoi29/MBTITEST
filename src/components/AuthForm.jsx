@@ -2,9 +2,9 @@ import { useState } from "react";
 
 const AuthForm = ({ onSubmit, error }) => {
   const [userData, setUserData] = useState({
-    email: "",
+    id: "", // ID 필드 추가
     password: "",
-    nickname: "", // 닉네임 필드
+    nickname: "",
   });
 
   const handleChange = (e) => {
@@ -19,13 +19,13 @@ const AuthForm = ({ onSubmit, error }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* 이메일 입력 */}
+      {/* ID 입력 */}
       <input
-        type="email"
-        name="email"
-        value={userData.email}
+        type="text"
+        name="id"
+        value={userData.id}
         onChange={handleChange}
-        placeholder="이메일"
+        placeholder="ID"
         required
         className="w-full px-4 py-2 bg-[#465e69] text-white border-b-2 border-white focus:outline-none focus:ring-0 focus:border-blue-400"
       />
@@ -36,7 +36,7 @@ const AuthForm = ({ onSubmit, error }) => {
         name="password"
         value={userData.password}
         onChange={handleChange}
-        placeholder="비밀번호"
+        placeholder="Password"
         required
         className="w-full px-4 py-2 bg-[#465e69] text-white border-b-2 border-white focus:outline-none focus:ring-0 focus:border-blue-400"
       />
@@ -47,7 +47,7 @@ const AuthForm = ({ onSubmit, error }) => {
         name="nickname"
         value={userData.nickname}
         onChange={handleChange}
-        placeholder="닉네임"
+        placeholder="Nickname"
         required
         className="w-full px-4 py-2 bg-[#465e69] text-white border-b-2 border-white focus:outline-none focus:ring-0 focus:border-blue-400"
       />
@@ -62,7 +62,7 @@ const AuthForm = ({ onSubmit, error }) => {
         type="submit"
         className="w-full bg-[#d6d9dc] text-[#2f4f4f] py-2 rounded-md hover:text-red-500"
       >
-        회원가입
+        Join
       </button>
     </form>
   );
