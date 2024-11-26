@@ -30,36 +30,30 @@ export const mbtiDescriptions = {
   INTP: "INTP: 세상의 진리를 탐구하는 철학자! INTP는 항상 새로운 아이디어와 이론을 탐구하는 사람들입니다. 이들은 '왜?'라는 질문을 끊임없이 던지며, 세상의 모든 것을 논리적으로 이해하려고 해요. 그러나 가끔은 너무 생각에 빠져서 현실과 동떨어질 때가 있어요. 그래도 이들의 지식과 통찰력은 언제나 놀라움을 줍니다.",
 };
 
+import { questions } from "../data/questions"; // 질문 데이터 가져오기
+
 export const calculateMBTI = (answers) => {
-  // 각 MBTI 유형에 대한 점수 초기화
   const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
 
-  // answers 배열을 순회하며 점수 누적
   answers.forEach(({ type, answer }) => {
-    const [option1, option2] = type.split("/"); // E/I, S/N 등의 유형 분리
-    if (answer === option1) {
+    const question = questions.find((q) => q.type === type); // 질문 매칭
+    if (!question) {
+      console.error(`Type '${type}'에 해당하는 질문을 찾을 수 없습니다.`);
+      return;
+    }
+
+    const [option1, option2] = type.split("/"); // 예: "E/I" → ["E", "I"]
+    const [firstOption, secondOption] = question.options; // 질문 옵션
+    if (answer === firstOption) {
       scores[option1]++;
-    } else if (answer === option2) {
+    } else if (answer === secondOption) {
       scores[option2]++;
     }
   });
 
-  // 각 점수 비교를 통해 최종 MBTI 유형 계산
   const result = `${scores.E >= scores.I ? "E" : "I"}${
     scores.S >= scores.N ? "S" : "N"
   }${scores.T >= scores.F ? "T" : "F"}${scores.J >= scores.P ? "J" : "P"}`;
 
   return result;
 };
-
-// 사용 예시:
-const answers = [
-  { type: "E/I", answer: "E" },
-  { type: "S/N", answer: "S" },
-  { type: "T/F", answer: "T" },
-  { type: "J/P", answer: "J" },
-  // 추가 질문들...
-];
-
-const mbtiResult = calculateMBTI(answers);
-console.log("MBTI 결과:", mbtiResult); // 예: "MBTI 결과: ESTJ"

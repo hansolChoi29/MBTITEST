@@ -1,13 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { calculateMBTI } from "../utils/mbtiCalculator";
 
 const TestResultPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { mbtiResult } = location.state || {};
-  // 결과 page
+  const { mbtiResult } = location.state || {}; // 결과 데이터 가져오기
+
   if (!mbtiResult) {
-    return <p>결과 데이터가 없습니다. 테스트를 먼저 진행해주세요.</p>;
+    return (
+      <div className="text-center p-4">
+        <p>결과 데이터가 없습니다. 테스트를 먼저 진행해주세요.</p>
+      </div>
+    );
   }
 
   return (
@@ -16,8 +19,7 @@ const TestResultPage = () => {
         <h1 className="text-2xl font-bold mb-4">MBTI 결과</h1>
         <p className="text-lg">
           당신의 MBTI는{" "}
-          <span className="font-bold text-blue-600">{calculateMBTI}</span>{" "}
-          입니다!
+          <span className="font-bold text-blue-600">{mbtiResult}</span> 입니다!
         </p>
         <button
           onClick={() => navigate("/testPage")}

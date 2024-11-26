@@ -6,9 +6,9 @@ const API_URL = "https://moneyfulpublicpolicy.co.kr";
 export const register = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/register`, userData);
-    return response.data; // 성공 시 반환되는 데이터
+    return response.data;
   } catch (error) {
-    throw error.response?.data || error.message; // 오류 처리
+    throw error.response?.data || error.message;
   }
 };
 
@@ -16,28 +16,41 @@ export const register = async (userData) => {
 export const login = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/login`, userData);
-    const token = response.data?.accessToken; // 서버에서 반환된 토큰
+    const token = response.data?.accessToken;
     if (!token) {
       throw new Error("로그인에 실패했습니다. 토큰을 받지 못했습니다.");
     }
-    localStorage.setItem("authToken", token); // 로컬 스토리지에 토큰 저장
-    return response.data; // 성공 시 반환되는 데이터
+    localStorage.setItem("authToken", token);
+    return response.data;
   } catch (error) {
-    throw error.response?.data || error.message; // 오류 처리
+    throw error.response?.data || error.message;
   }
 };
 
 // 사용자 프로필 가져오기
 export const getUserProfile = async (token) => {
   try {
-    const response = await axios.get(`${API_URL}/profile`, {
-      headers: {
-        Authorization: `Bearer ${token}`, // 인증 토큰
-      },
+    if (isTokenExpired(token)) {
+      throw new Error("토큰이 만료되었습니다.");
+    }
+    const response = await axios.get(`${API_URL}`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
-    return response.data; // 사용자 프로필 데이터 반환
+    return response.data;
   } catch (error) {
-    throw error.response?.data || error.message; // 오류 처리
+    throw error.response?.data || error.message;
+  }
+};
+// 토큰 만료 여부 확인
+export const isTokenExpired = (token) => {
+  try {
+    const base64Payload = token.split(".")[1]; // JWT의 두 번째 부분 (Payload)
+    const decodedPayload = JSON.parse(atob(base64Payload)); // Base64 디코딩 후 JSON 파싱
+    const now = Date.now() / 1000; // 현재 시간 (초 단위)
+    return decodedPayload.exp < now; // 만료 시간이 현재 시간보다 이전인지 확인
+  } catch (error) {
+    console.error("토큰 디코딩 실패:", error);
+    return true; // 디코딩 실패 시 만료된 것으로 간주
   }
 };
 
@@ -62,18 +75,20 @@ export const updateProfile = async (userData) => {
 
 export const getTestResults = async () => {
   try {
-    const token = localStorage.getItem("authToken"); // 인증 토큰 가져오기
+    const token = localStorage.getItem("authToken");
+    console.log("사용자 토큰:", token); // 토큰 확인
     if (!token) {
       throw new Error("인증 토큰이 없습니다. 로그인 후 다시 시도하세요.");
     }
 
     const response = await axios.get(`${API_URL}/test-results`, {
       headers: {
-        Authorization: `Bearer ${token}`, // 인증 토큰
+        Authorization: `Bearer ${token}`,
       },
     });
 
-    return response.data; // 테스트 결과 데이터 반환
+    console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
+    return response.data;
   } catch (error) {
     console.error(
       "테스트 결과 가져오기 실패:",

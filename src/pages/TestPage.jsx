@@ -50,7 +50,12 @@ const TestPage = ({ user }) => {
                 {mbtiDescriptions[result] ||
                   "해당 성격 유형에 대한 설명이 없습니다."}
               </p>
-              <Link to="/testpage" />
+              <Link
+                to="/profilepage"
+                className="flex flex-col items-center justify-center"
+              >
+                profile
+              </Link>
             </>
           )}
         </div>
