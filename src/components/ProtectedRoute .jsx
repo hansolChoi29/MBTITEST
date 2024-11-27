@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
-  const token = localStorage.getItem("authToken"); // 인증 토큰 확인
+  const token = localStorage.getItem("token"); // 인증 토큰 확인
 
   if (!token) {
     // 토큰이 없으면 로그인 페이지로 리디렉션

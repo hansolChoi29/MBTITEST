@@ -1,6 +1,5 @@
 // src/components/Layout.jsx
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import Footer from "./Footer";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -8,7 +7,7 @@ const Layout = () => {
   const handleLogout = (e) => {
     e.preventDefault(); // 폼 기본 동작 방지
     // 로그아웃 로직 (예: 토큰 제거)
-    localStorage.removeItem("authToken"); // 예시
+    localStorage.removeItem("token"); // 예시
     navigate("/");
   };
 

@@ -1,34 +1,36 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getTestResults } from "../api/testResults";
+import TestResultList from "../components/TestResultList";
 
 const TestResultPage = () => {
-  const location = useLocation();
+  const [results, setResults] = useState([]);
+  const loading = false;
   const navigate = useNavigate();
-  const { mbtiResult } = location.state || {}; // 결과 데이터 가져오기
-
-  if (!mbtiResult) {
-    return (
-      <div className="text-center p-4">
-        <p>결과 데이터가 없습니다. 테스트를 먼저 진행해주세요.</p>
-      </div>
-    );
-  }
-
+  useEffect(() => {
+    const fetchTestResults = async () => {
+      try {
+        const data = await getTestResults();
+        setResults(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTestResults();
+  }, []);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg text-center w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-4">MBTI 결과</h1>
-        <p className="text-lg">
-          당신의 MBTI는{" "}
-          <span className="font-bold text-blue-600">{mbtiResult}</span> 입니다!
-        </p>
-        <button
-          onClick={() => navigate("/testPage")}
-          className="mt-6 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          다시 테스트하기
-        </button>
+    <>
+      <div className="w-full flex flex-col items-center justify-center bg-white mt-16 p-8">
+        <h1 className="text-3xl font-bold mb-8 text-primary-color">
+          모든 테스트 결과
+        </h1>
+        {loading ? ( // 로딩 상태 표시
+          <p className="text-xl text-gray-500">로딩 중...</p>
+        ) : (
+          <TestResultList results={results} setResults={setResults} />
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

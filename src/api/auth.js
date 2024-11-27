@@ -16,31 +16,43 @@ export const register = async (userData) => {
 export const login = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/login`, userData);
-    const token = response.data?.accessToken;
-    if (!token) {
-      throw new Error("로그인에 실패했습니다. 토큰을 받지 못했습니다.");
-    }
-    localStorage.setItem("authToken", token);
-    return response.data;
+    // 서버 응답에서 데이터 가져오기
+    const { accessToken, userId, nickname } = response.data;
+
+    // 로컬 스토리지에 사용자 데이터와 토큰 저장
+    localStorage.setItem("user", JSON.stringify({ userId, nickname }));
+    localStorage.setItem("token", accessToken);
+    console.log("API 응답 데이터:", response.data); // 디버깅
+    return { userId, nickname, token: accessToken }; // 예상 데이터 구조: { accessToken: "TOKEN_VALUE" }
   } catch (error) {
-    throw error.response?.data || error.message;
+    console.error("API 호출 실패:", error.response?.data || error.message);
+    throw error;
   }
 };
 
 // 사용자 프로필 가져오기
 export const getUserProfile = async (token) => {
   try {
+    console.log("사용자 토큰:", token); // 토큰 확인
+    console.log("요청 URL 확인:", API_URL + "/profile");
+
     if (isTokenExpired(token)) {
+      console.error("토큰이 만료되었습니다.");
       throw new Error("토큰이 만료되었습니다.");
     }
+
     const response = await axios.get(`${API_URL}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+
+    console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
-    throw error.response?.data || error.message;
+    console.error("프로필 가져오기 실패:", error.response || error.message);
+    throw error;
   }
 };
+
 // 토큰 만료 여부 확인
 export const isTokenExpired = (token) => {
   try {
@@ -70,30 +82,5 @@ export const updateProfile = async (userData) => {
     return response.data; // 업데이트된 사용자 데이터 반환
   } catch (error) {
     throw error.response?.data || error.message; // 오류 처리
-  }
-};
-
-export const getTestResults = async () => {
-  try {
-    const token = localStorage.getItem("authToken");
-    console.log("사용자 토큰:", token); // 토큰 확인
-    if (!token) {
-      throw new Error("인증 토큰이 없습니다. 로그인 후 다시 시도하세요.");
-    }
-
-    const response = await axios.get(`${API_URL}/test-results`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
-    return response.data;
-  } catch (error) {
-    console.error(
-      "테스트 결과 가져오기 실패:",
-      error.response?.data || error.message
-    );
-    throw error;
   }
 };

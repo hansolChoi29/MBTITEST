@@ -873,6 +873,93 @@
         }
       ],
       "createdAt": "2024-11-26T15:50:33.844Z"
+    },
+    {
+      "id": "af70",
+      "mbtiResult": "ESTJ",
+      "answers": [
+        {
+          "type": "E/I",
+          "answer": "같이 놀아준다"
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "E/I",
+          "answer": "춤추면서 걷는다"
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        },
+        {
+          "type": "",
+          "answer": ""
+        }
+      ],
+      "createdAt": "2024-11-27T05:37:22.891Z"
     }
   ]
 }

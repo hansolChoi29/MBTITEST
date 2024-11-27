@@ -6,26 +6,18 @@ const Loginpage = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const response = await login({ id, password });
+      const token = response?.accessToken;
 
-      // 서버에서 반환된 토큰 확인
-      console.log("토큰 확인:", response?.accessToken);
-      if (!response?.accessToken) {
-        alert("로그인은 성공했으나 토큰을 받지 못했습니다.");
-        return;
-      }
-
-      alert("로그인 성공!");
-      navigate("/testpage"); // testpage 이동
+      navigate("/testpage"); // 페이지 이동
     } catch (err) {
-      console.error("로그인 실패:", err.response?.data || err.message);
-      alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+      console.error("로그인 실패:", err.response?.data || err.message); // 에러 로그
     }
   };
 
