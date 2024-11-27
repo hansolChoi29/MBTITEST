@@ -4,11 +4,15 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 const Layout = () => {
   const navigate = useNavigate();
 
-  const handleLogout = (e) => {
-    e.preventDefault(); // 폼 기본 동작 방지
-    // 로그아웃 로직 (예: 토큰 제거)
-    localStorage.removeItem("token"); // 예시
-    navigate("/");
+  const handleLogout = () => {
+    // 토큰 삭제
+    localStorage.removeItem("token");
+
+    // 필요하면 추가 상태 초기화
+    console.log("Logged out");
+
+    // 리디렉션
+    window.location.href = "/"; // 홈으로 이동
   };
 
   return (
@@ -23,6 +27,9 @@ const Layout = () => {
             MBTI TEST
           </Link>
           <div>
+            <Link to="/testResultpage" className="mr-4 hover:underline">
+              results
+            </Link>
             <Link to="/profilepage" className="mr-4 hover:underline">
               Profile
             </Link>
@@ -36,9 +43,8 @@ const Layout = () => {
           </div>
         </div>
       </form>
-      <main className="container mx-auto py-6">
-        <Outlet />
-      </main>
+
+      <Outlet />
     </div>
   );
 };

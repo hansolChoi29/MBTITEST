@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../api/auth";
+import Layout from "../components/Layout";
 
 const ProfilePage = () => {
   const [nickname, setNickname] = useState("");
@@ -11,6 +12,7 @@ const ProfilePage = () => {
   useEffect(() => {
     console.log("현재 user 상태:", user);
     const fetchProfile = async () => {
+      console.log(user);
       try {
         const profile = await getUserProfile();
         console.log(profile);
@@ -23,13 +25,25 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div className="p-6 max-w-md mx-auto bg-gray-100 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">프로필 페이지</h1>
-      <div className="mb-6">
-        <label className="block text-gray-600 font-semibold mb-2">닉네임</label>
-        <p className="text-gray-800">{user?.nickname || "닉네임 없음"}</p>
+    <div>
+      <Layout />
+      <div className="min-h-screen bg-[#2f4f4f] flex items-center justify-center">
+        <div className="bg-white rounded-lg shadow-lg p-8 w-96">
+          <div className="mb-8">
+            <p className="text-center text-3xl font-bold text-[#2f4f4f] mb-4">
+              Mypage
+            </p>
+          </div>
+          <div className="mb-8">
+            <label className="block text-center text-lg text-gray-700 font-semibold">
+              닉네임: {user?.nickname || "닉네임 없음"}
+            </label>
+          </div>
+          <button className="w-full bg-[#2f4f4f] text-white py-2 px-4 rounded-lg font-semibold hover:bg-[#1e3a3a] transition">
+            수정
+          </button>
+        </div>
       </div>
-      <button>프로필업데이트</button>
     </div>
   );
 };

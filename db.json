@@ -1,94 +1,6 @@
 {
   "testResults": [
     {
-      "id": "2e22",
-      "userId": "guest",
-      "mbtiResult": "ESTJ",
-      "answers": [
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        },
-        {
-          "type": "",
-          "answer": ""
-        }
-      ],
-      "createdAt": "2024-11-26T12:36:47.211Z"
-    },
-    {
       "id": "03e4",
       "userId": "guest",
       "mbtiResult": "ESTP",
@@ -262,7 +174,8 @@
           "answer": "한 개만 가져간다"
         }
       ],
-      "createdAt": "2024-11-26T12:58:04.375Z"
+      "createdAt": "2024-11-26T12:58:04.375Z",
+      "visibility": true
     },
     {
       "id": "dbf0",

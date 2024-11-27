@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getTestResults } from "../api/testResults";
 import TestResultList from "../components/TestResultList";
+import Layout from "../components/Layout";
 
 const TestResultPage = () => {
   const [results, setResults] = useState([]);
@@ -20,6 +21,7 @@ const TestResultPage = () => {
   }, []);
   return (
     <>
+      <Layout />
       <div className="w-full flex flex-col items-center justify-center bg-white mt-16 p-8">
         <h1 className="text-3xl font-bold mb-8 text-primary-color">
           모든 테스트 결과

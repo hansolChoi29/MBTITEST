@@ -15,7 +15,10 @@ export const register = async (userData) => {
 // 로그인
 export const login = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, userData);
+    const response = await axios.post(
+      `${API_URL}/login?expiresIn=10s`,
+      userData
+    );
     // 서버 응답에서 데이터 가져오기
     const { accessToken, userId, nickname } = response.data;
 
@@ -58,7 +61,7 @@ export const isTokenExpired = (token) => {
   try {
     const base64Payload = token.split(".")[1]; // JWT의 두 번째 부분 (Payload)
     const decodedPayload = JSON.parse(atob(base64Payload)); // Base64 디코딩 후 JSON 파싱
-    const now = Date.now() / 1000; // 현재 시간 (초 단위)
+    const now = Date.now(); // 현재 시간 (초 단위)
     return decodedPayload.exp < now; // 만료 시간이 현재 시간보다 이전인지 확인
   } catch (error) {
     console.error("토큰 디코딩 실패:", error);
