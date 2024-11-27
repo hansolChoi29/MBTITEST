@@ -61,7 +61,7 @@ export const updateProfile = async (token, userData) => {
     const { data } = await axios.patch(`${API_URL}/profile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}/login?expiresIn=10d`,
       },
     });
     return data;
