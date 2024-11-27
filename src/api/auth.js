@@ -16,7 +16,7 @@ export const register = async (userData) => {
 export const login = async (userData) => {
   try {
     const response = await axios.post(
-      `${API_URL}/login?expiresIn=10s`,
+      `${API_URL}/login?expiresIn=10m`,
       userData
     );
     // 서버 응답에서 데이터 가져오기
