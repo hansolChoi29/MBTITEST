@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { updateTestResult } from "../api/testResults"; // 이미 있는 업데이트 함수 import
 // deleteTestResult를 명시적으로 정의
 const deleteTestResult = async (id) => {
@@ -24,25 +25,25 @@ const TestResultItem = ({ results, setResults, onDelete }) => {
           result.id === updatedResult.id ? updatedResult : result
         )
       );
-      alert("공개 여부가 변경되었습니다.");
+      toast.success("공개 여부가 변경되었습니다.");
     } catch (err) {
       console.error("공개 여부 변경 실패:", err);
-      alert("변경 실패!");
+      toast.error("변경 실패!");
     }
   };
 
   // 삭제 버튼 핸들러
   const handleDelete = async () => {
-    if (window.confirm("이 테스트 결과를 삭제하시겠습니까?")) {
+    {
       try {
         await deleteTestResult(results.id); // 삭제 요청 호출
         setResults((prevResults) =>
           prevResults.filter((result) => result.id !== results.id)
         ); // 로컬 상태 업데이트
-        alert("테스트 결과가 삭제되었습니다.");
+        toast.success("테스트 결과가 삭제되었습니다.");
       } catch (err) {
         console.error("테스트 결과 삭제 실패:", err);
-        alert("삭제 실패!");
+        toast.error("삭제 실패!");
       }
     }
   };

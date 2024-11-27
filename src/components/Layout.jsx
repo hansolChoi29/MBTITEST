@@ -5,14 +5,9 @@ const Layout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // 토큰 삭제
-    localStorage.removeItem("token");
-
-    // 필요하면 추가 상태 초기화
-    console.log("Logged out");
-
-    // 리디렉션
-    window.location.href = "/"; // 홈으로 이동
+    localStorage.removeItem("user"); // 사용자 정보 삭제
+    localStorage.removeItem("authToken"); // 토큰 삭제
+    window.location.href = "/loginpage"; // 홈으로 리디렉션
   };
 
   return (
@@ -35,7 +30,6 @@ const Layout = () => {
             </Link>
             <Link
               to="/"
-              type="submit"
               className="hover:underline bg-transparent border-none cursor-pointer"
             >
               Logout

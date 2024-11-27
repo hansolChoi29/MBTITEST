@@ -6,18 +6,19 @@ import ProfilePage from "./pages/Profilepage";
 import Layout from "./components/Layout";
 import TestPage from "./pages/TestPage";
 import TestResultPage from "./pages/TestResultPage ";
-import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // 기본 스타일
+
 const App = () => {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
-        <Route element={<PublicRoute />}>
-          <Route element={<Layout />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/loginpage" element={<Loginpage />} />
-          <Route path="/signuppage" element={<Signuppage />} />
-        </Route>
+        <Route path="/" element={<HomePage />} />
+        <Route element={<Layout />} />
+        <Route path="/loginpage" element={<Loginpage />} />
+        <Route path="/signuppage" element={<Signuppage />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profilepage" element={<ProfilePage />} />
           <Route path="/testpage" element={<TestPage />} />

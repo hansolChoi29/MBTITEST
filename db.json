@@ -86,7 +86,8 @@
           "answer": "한 개만 가져간다"
         }
       ],
-      "createdAt": "2024-11-26T12:57:46.488Z"
+      "createdAt": "2024-11-26T12:57:46.488Z",
+      "visibility": true
     },
     {
       "id": "5656",
@@ -175,7 +176,7 @@
         }
       ],
       "createdAt": "2024-11-26T12:58:04.375Z",
-      "visibility": true
+      "visibility": false
     },
     {
       "id": "dbf0",
@@ -263,7 +264,8 @@
           "answer": ""
         }
       ],
-      "createdAt": "2024-11-26T12:58:17.294Z"
+      "createdAt": "2024-11-26T12:58:17.294Z",
+      "visibility": true
     },
     {
       "id": "1ccf",
@@ -350,7 +352,8 @@
           "answer": "한 개만 가져간다"
         }
       ],
-      "createdAt": "2024-11-26T15:03:02.823Z"
+      "createdAt": "2024-11-26T15:03:02.823Z",
+      "visibility": false
     },
     {
       "id": "8c28",
@@ -437,7 +440,8 @@
           "answer": ""
         }
       ],
-      "createdAt": "2024-11-26T15:05:55.437Z"
+      "createdAt": "2024-11-26T15:05:55.437Z",
+      "visibility": true
     },
     {
       "id": "a9da",
@@ -611,7 +615,8 @@
           "answer": "한 개만 가져간다"
         }
       ],
-      "createdAt": "2024-11-26T15:25:18.809Z"
+      "createdAt": "2024-11-26T15:25:18.809Z",
+      "visibility": true
     },
     {
       "id": "faf6",

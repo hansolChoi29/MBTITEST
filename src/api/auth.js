@@ -39,11 +39,6 @@ export const getUserProfile = async (token) => {
     console.log("사용자 토큰:", token); // 토큰 확인
     console.log("요청 URL 확인:", API_URL + "/profile");
 
-    if (isTokenExpired(token)) {
-      console.error("토큰이 만료되었습니다.");
-      throw new Error("토큰이 만료되었습니다.");
-    }
-
     const response = await axios.get(`${API_URL}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -56,34 +51,48 @@ export const getUserProfile = async (token) => {
   }
 };
 
-// 토큰 만료 여부 확인
-export const isTokenExpired = (token) => {
-  try {
-    const base64Payload = token.split(".")[1]; // JWT의 두 번째 부분 (Payload)
-    const decodedPayload = JSON.parse(atob(base64Payload)); // Base64 디코딩 후 JSON 파싱
-    const now = Date.now(); // 현재 시간 (초 단위)
-    return decodedPayload.exp < now; // 만료 시간이 현재 시간보다 이전인지 확인
-  } catch (error) {
-    console.error("토큰 디코딩 실패:", error);
-    return true; // 디코딩 실패 시 만료된 것으로 간주
-  }
-};
-
 // 프로필 업데이트
-export const updateProfile = async (userData) => {
+export const updateProfile = async (token, userData) => {
   try {
-    const token = localStorage.getItem("authToken"); // 로컬 스토리지에서 토큰 가져오기
-    if (!token) {
-      throw new Error("인증 토큰이 없습니다. 로그인 후 다시 시도하세요.");
-    }
-    const response = await axios.put(`${API_URL}/profile`, userData, {
+    const formData = new FormData();
+    // avatar와 nickname 중 하나 또는 모두 변경 가능
+    formData.append("avatar", userData.avatar);
+    formData.append("nickname", userData.newNickname);
+    const { data } = await axios.patch(`${API_URL}/profile`, formData, {
       headers: {
-        Authorization: `Bearer ${token}`, // 인증 토큰
-        "Content-Type": "application/json", // 요청 타입
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
       },
     });
-    return response.data; // 업데이트된 사용자 데이터 반환
+    return data;
   } catch (error) {
-    throw error.response?.data || error.message; // 오류 처리
+    console.error(error);
+    throw new Error("프로필 업데이트 실패");
   }
 };
+//   try {
+//     const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져오기
+//     if (!token) {
+//       console.error("로컬 스토리지에 토큰이 없습니다.");
+//       throw new Error("인증 토큰이 없습니다. 로그인 후 다시 시도하세요.");
+//     }
+//     console.log("사용자 토큰:", token); // 디버깅용
+
+//     const response = await axios.patch(`${API_URL}/profile`, userData, {
+//       headers: {
+//         Authorization: `Bearer ${token}`, // 인증 토큰
+//         "Content-Type": "application/json", // 요청 타입
+//       },
+//     });
+
+//     console.log("API 요청 URL:", `${API_URL}/profile`); // 디버깅용
+//     console.log("전송 데이터:", userData); // 디버깅용
+//     console.log("API 응답 데이터:", response.data); // 디버깅용
+
+//     return response.data; // 업데이트된 사용자 데이터 반환
+//   } catch (error) {
+//     console.error("API 호출 오류:", error.response || error.message);
+//     throw error.response?.data || error.message; // 오류 처리
+//   }
+
+// 이미지파일을 FormData에 담는 방법
