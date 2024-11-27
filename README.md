@@ -38,27 +38,26 @@ Tailwind CSS를 활용하여 모바일, 태블릿, 데스크톱에 최적화된 
 
 
  ## 주요 기술 스택
-프론트엔드
-React: 컴포넌트 기반 UI 라이브러리.
-Vite: 빠른 개발 서버 및 번들러.
-Tailwind CSS: 유틸리티 기반 CSS 프레임워크.
-백엔드
-JSON Server: 가상 REST API 서버.
+
+- React: 컴포넌트 기반 UI 라이브러리.
+- Vite: 빠른 개발 서버 및 번들러.
+- Tailwind CSS: 유틸리티 기반 CSS 프레임워크.
+- JSON Server: 가상 REST API 서버.
 
 
 ## 핵심 컴포넌트 및 파일 설명
-1. App.jsx
-애플리케이션의 최상위 컴포넌트로, 모든 라우팅과 페이지 컴포넌트를 관리합니다.
-2. TestResultItem.jsx
-테스트 결과의 개별 항목을 렌더링.
-공개 여부 토글, 삭제 기능을 포함하며 작성자 여부(isOwner)를 확인.
-3. ProfilePage.jsx
-로그인된 사용자의 정보를 표시.
-닉네임 수정 기능을 제공하며, updateProfile API를 사용.
-4. TestPage.jsx
-MBTI 질문을 사용자에게 보여주고, 답변을 저장합니다.
-5. TestResultPage.jsx
-저장된 테스트 결과를 리스트로 보여줍니다.
-비공개 결과는 작성자만 조회 가능하며, 공개 결과는 모든 사용자가 볼 수 있습니다.
+1. App.jsx </br>
+애플리케이션의 최상위 컴포넌트로, 모든 라우팅과 페이지 컴포넌트를 관리합니다.  </br>
+2. TestResultItem.jsx  </br>
+테스트 결과의 개별 항목을 렌더링.  </br>
+공개 여부 토글, 삭제 기능을 포함하며 작성자 여부(isOwner)를 확인.  </br>
+3. ProfilePage.jsx  </br>
+로그인된 사용자의 정보를 표시.  </br>
+닉네임 수정 기능을 제공하며, updateProfile API를 사용.  </br>
+4. TestPage.jsx  </br>
+MBTI 질문을 사용자에게 보여주고, 답변을 저장합니다.  </br>
+5. TestResultPage.jsx  </br>
+저장된 테스트 결과를 리스트로 보여줍니다.  </br>
+비공개 결과는 작성자만 조회 가능하며, 공개 결과는 모든 사용자가 볼 수 있습니다.  </br>
 
 
