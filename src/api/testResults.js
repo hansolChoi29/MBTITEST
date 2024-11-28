@@ -1,16 +1,19 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/testResults";
+const API_URL = `${import.meta.env.VITE_BASE_URL}/testResults`;
 
 // 테스트 결과 생성 (Create)
 export const createTestResult = async (testData) => {
   try {
     const userId = JSON.parse(localStorage.getItem("user"))?.id; // 로컬 저장소에서 사용자 ID 가져오기
-    const response = await axios.post("http://localhost:5000/testResults", {
-      ...testData,
-      userId, // 사용자 ID 추가
-      createdAt: new Date().toISOString(), // 생성 시간 추가
-    });
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/testResults`,
+      {
+        ...testData,
+        userId, // 사용자 ID 추가
+        createdAt: new Date().toISOString(), // 생성 시간 추가
+      }
+    );
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
