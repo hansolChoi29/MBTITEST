@@ -16,7 +16,7 @@ export const register = async (userData) => {
 export const login = async (userData) => {
   try {
     const response = await axios.post(
-      `${API_URL}/login?expiresIn=10m`,
+      `${API_URL}/login?expiresIn=30m`,
       userData
     );
     // 서버 응답에서 데이터 가져오기
@@ -37,9 +37,9 @@ export const login = async (userData) => {
 export const getUserProfile = async (token) => {
   try {
     console.log("사용자 토큰:", token); // 토큰 확인
-    console.log("요청 URL 확인:", API_URL + "/profile");
+    console.log("요청 URL 확인:", API_URL + "/user");
 
-    const response = await axios.get(`${API_URL}`, {
+    const response = await axios.get(`${API_URL}/user`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -52,16 +52,16 @@ export const getUserProfile = async (token) => {
 };
 
 // 프로필 업데이트
-export const updateProfile = async (token, userData) => {
+export const updateProfile = async (token, nickname) => {
   try {
     const formData = new FormData();
     // avatar와 nickname 중 하나 또는 모두 변경 가능
-    formData.append("avatar", userData.avatar);
-    formData.append("nickname", userData.newNickname);
+    formData.append("nickname", nickname);
+    console.log("userData.nickname=>", nickname);
     const { data } = await axios.patch(`${API_URL}/profile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}/login?expiresIn=10d`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return data;

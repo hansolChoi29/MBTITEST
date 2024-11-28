@@ -1,18 +1,11 @@
 import { toast } from "react-toastify";
-import { updateTestResult } from "../api/testResults"; // 이미 있는 업데이트 함수 import
-// deleteTestResult를 명시적으로 정의
-const deleteTestResult = async (id) => {
-  // 삭제 요청 처리 (예: API 요청)
-  console.log(`삭제 요청: id=${id}`);
-  // 여기 실제 API 호출 로직 추가 가능
-  return Promise.resolve(); // 성공적으로 처리된 것으로 간주
-};
-
+import { updateTestResult, deleteTestResult } from "../api/testResults"; // 이미 있는 업데이트 함수 import
 const TestResultItem = ({ results, setResults, onDelete }) => {
-  const { userId, id, mbtiResult } = results;
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  const isOwner = true;
-
+  const { userid, id, nickname, mbti, description, createdAt, visibility } =
+    results;
+  const isOwner = userid === user.userId;
   // 공개 여부 토글 함수
   const handleVisibilityToggle = async () => {
     try {
@@ -36,9 +29,9 @@ const TestResultItem = ({ results, setResults, onDelete }) => {
   const handleDelete = async () => {
     {
       try {
-        await deleteTestResult(results.id); // 삭제 요청 호출
+        await deleteTestResult(id); // 삭제 요청 호출
         setResults((prevResults) =>
-          prevResults.filter((result) => result.id !== results.id)
+          prevResults.filter((result) => result.id !== id)
         ); // 로컬 상태 업데이트
         toast.success("테스트 결과가 삭제되었습니다.");
       } catch (err) {
@@ -51,15 +44,16 @@ const TestResultItem = ({ results, setResults, onDelete }) => {
   return (
     <div className="p-4 border rounded-lg w-96 shadow-sm bg-[#465e69]">
       <h3 className="font-bold text-2xl text-[#d6d9dc]">
-        {results.mbtiResult || "결과 없음"}
+        {mbti || "결과 없음"}
       </h3>
       <p className="text-sm text-gray-500">
-        작성일: {new Date(results.createdAt).toLocaleDateString("ko-KR")}
+        작성일: {new Date(createdAt).toLocaleDateString("ko-KR")}
       </p>
       <p className="text-sm text-red-500">
-        공개 상태: {results.visibility ? "공개" : "비공개"}
+        공개 상태: {visibility ? "공개" : "비공개"}
       </p>
-
+      <p>{nickname || "닉네임 없음"}</p>
+      <p>{description}</p>
       {isOwner && (
         <div className="flex space-x-2 mt-4">
           <button

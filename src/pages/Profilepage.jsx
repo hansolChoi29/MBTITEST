@@ -5,20 +5,15 @@ import { toast } from "react-toastify";
 
 const ProfilePage = () => {
   const [nickname, setNickname] = useState("");
-  const [originalNickname, setOriginalNickname] = useState(""); // 기존 닉네임 저장
   const [isEditing, setIsEditing] = useState(false); // 수정 모드 상태 관리
   const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    console.log("현재 user 상태:", user);
     const fetchProfile = async () => {
-      console.log(user);
       try {
         const profile = await getUserProfile(token);
-        console.log(profile);
-
-        setOriginalNickname(profile.nickname); // 초기 닉네임 설정
+        console.log(profile.nickname);
+        setNickname(profile.nickname); // 초기 닉네임 설정
       } catch (error) {
         console.error("프로필정보를 못찾음");
       }
@@ -28,19 +23,24 @@ const ProfilePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // 기본 동작 방지
+
     try {
+      const user = JSON.parse(localStorage.getItem("user"));
+
       if (!nickname.trim()) {
         toast.error("닉네임을 입력해주세요.");
         return;
       }
-      if (nickname === originalNickname) {
-        toast.error("닉네임이 변경되지 않았습니다.");
-        return;
-      }
+      // if (nickname === originalNickname) {
+      //   toast.error("닉네임이 변경되지 않았습니다.");
+      //   return;
+      // }
 
-      await updateProfile(token, { nickname }); // 서버로 닉네임 업데이트 요청
+      const updatedProfile = await updateProfile(token, nickname);
+      const updatedUser = { ...user, nickname: updatedProfile.nickname };
+      localStorage.setItem("user", JSON.stringify(updatedUser)); // 서버로 닉네임 업데이트 요청
       toast.success("닉네임이 성공적으로 업데이트되었습니다.");
-      setOriginalNickname(nickname); // 업데이트된 닉네임을 원래 닉네임으로 설정
+      // setOriginalNickname(userId); // 업데이트된 닉네임을 원래 닉네임으로 설정
       setIsEditing(false); // 수정 모드 종료
     } catch (err) {
       console.error("닉네임 업데이트 실패", err);
@@ -72,7 +72,7 @@ const ProfilePage = () => {
               />
             ) : (
               <p className="text-center text-gray-800">
-                {user?.nickname || "닉네임 없음"}
+                {nickname || "닉네임 없음"}
               </p>
             )}
             {isEditing && (

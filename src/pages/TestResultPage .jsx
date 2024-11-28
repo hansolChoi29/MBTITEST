@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { getTestResults } from "../api/testResults";
 import TestResultList from "../components/TestResultList";
 import Layout from "../components/Layout";
-
 const TestResultPage = () => {
   const [results, setResults] = useState([]);
   const loading = false;

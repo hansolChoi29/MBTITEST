@@ -5,7 +5,9 @@ import { createTestResult } from "../api/testResults";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 
-const TestPage = ({ user }) => {
+const TestPage = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const navigate = useNavigate();
   const [result, setResult] = useState(null);
 
@@ -16,9 +18,11 @@ const TestPage = ({ user }) => {
     try {
       // API 호출: 테스트 결과 서버에 저장
       const testData = {
-        userId: user?.id || "guest", // 유저 ID가 없으면 "guest"로 처리
-        mbtiResult,
-        answers,
+        userid: user.userId, // 유저 ID가 없으면 "guest"로 처리
+        mbti: mbtiResult,
+        nickname: user.nickname,
+        description: mbtiDescriptions[mbtiResult],
+        visibility: true,
         createdAt: new Date().toISOString(), // 생성 시간 추가
       };
 
